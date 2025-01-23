@@ -11,12 +11,15 @@
   <div id="mouse-box"></div>
   <div id="scene-container"></div>
 
-  <!-- Ajout de l'audio d'ambiance -->
-  <audio id="background-audio" src="assets/audio/Son-d_ambiance.mp3" autoplay loop></audio>
-
+  <audio id="background-audio" autoplay loop>
+    <source src="assets/audio/ambiance.mp3" type="audio/mpeg">
+    <source src="assets/audio/ambiance.ogg" type="audio/ogg">
+    Votre navigateur ne supporte pas l'élément audio.
+  </audio>
 
   <script src="js/scene.js"></script>
   <script src="js/sceneObject.js"></script>
   <script src="js/slider.js"></script>
+  <script src="js/audioControl.js"></script> <!-- Ajout du script pour contrôler l'audio -->
 </body>
 </html>
