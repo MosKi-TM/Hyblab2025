@@ -16,6 +16,28 @@
     background-color: #000; /* Optionnel : couleur de fond */
   }
 
+  .element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;           /* Utilise la largeur du SVG */
+    height: auto;  
+    transform-origin: center;
+    display: inline-block;
+}
+
+#svgElement1 {
+    z-index: 1;
+}
+
+#svgElement2 {
+    z-index: 2;
+}
+
+#svgElement3 {
+    z-index: 3;
+}
+
   #mouse-box {
     position: absolute;
     top: 0;
