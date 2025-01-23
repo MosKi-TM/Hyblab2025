@@ -1,0 +1,11 @@
+/* Style de l'image initiale : noir et blanc */
+.interactive-image {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out; /* Transition fluide pour l'effet */
+    cursor: pointer; /* Indicateur interactif */
+}
+
+.interactive-image:hover {
+    filter: grayscale(80%); /* Légèrement moins gris au survol */
+    transform: scale(1.05); /* Légère mise en avant au survol */
+}
