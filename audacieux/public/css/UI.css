@@ -22,8 +22,14 @@ header {
 /* Conteneur principal */
 main {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
     margin: 8px;
+}
+
+.game {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Barre latérale (sidebar) */
@@ -44,7 +50,11 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre autour de chaque image */
 }
 
-/* Section audio */
+.hidden.mouse.over {
+    width: 150px; /* Ajustez la taille selon vos besoins */
+    height: 150px;
+    transition: box-shadow 0.3s; /* Animation fluide pour l'ombre */
+}
 
 
 /* Pied de page */
