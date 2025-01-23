@@ -56,6 +56,10 @@ main {
     transition: box-shadow 0.3s; /* Animation fluide pour l'ombre */
 }
 
+.hidden.mouse.over:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Ombre autour de la div au survol */
+}
+
 
 /* Pied de page */
 footer {
