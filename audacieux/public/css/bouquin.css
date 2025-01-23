@@ -1,0 +1,85 @@
+.book {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px; /* Taille initiale */
+    height: 150px;
+    background: brown;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+/* Conteneur des pages dans le livre */
+.content {
+    display: flex;
+    flex-wrap: nowrap; /* Évite que les pages passent à la ligne */
+    overflow: hidden;  /* Masque les débordements */
+    width: 100%;
+    height: 100%;
+}
+
+/* Styles pour les pages */
+.page {
+    flex: 1 0 50%; /* Chaque page prend la moitié de la largeur du conteneur */
+    height: 100%;
+    background: #fff;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    overflow: auto;
+    box-sizing: border-box; /* Inclut les bordures et le padding dans la taille */
+    transition: opacity 0.3s ease;
+}
+
+/* Affichage des pages masquées */
+.page.hidden {
+    display: none; /* Masque les pages qui ne sont pas visibles */
+    opacity: 0;
+    pointer-events: none; /* Désactive les interactions avec les pages masquées */
+
+}
+
+/* Affichage lorsque le livre est ouvert */
+.book.open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: row;
+    transform: none;
+    z-index: 9999;
+}
+
+.book.open .content {
+    display: flex;
+}
+
+/* Boutons de navigation */
+.navigation {
+    position: absolute;
+    bottom: 2%; /* Aligné en bas de l'écran */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1em;
+}
+
+.navigation button {
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    border: none;
+    background: #555;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.navigation button:hover {
+    background: #333;
+}
