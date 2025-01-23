@@ -1,0 +1,60 @@
+/* styles.css */
+
+/* Style global pour la page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* En-tête */
+header {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.5em;
+    
+}
+
+/* Conteneur principal */
+main {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+}
+
+/* Barre latérale (sidebar) */
+.sidebar {
+    padding: 8px;
+    border-radius: 8px;
+    width: 5%;
+}
+
+.sidebar img {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    margin: 20px auto;
+    border-radius: 8px;
+    background-color:  #2c3e50;
+    padding: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre autour de chaque image */
+}
+
+/* Section audio */
+
+
+/* Pied de page */
+footer {
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9em;
+}
