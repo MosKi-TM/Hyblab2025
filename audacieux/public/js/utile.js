@@ -219,7 +219,7 @@ function createPopup(options) {
 }
 
 // Exemple d'utilisation
-document.getElementById("popup").addEventListener("click", () => {
+/*document.getElementById("popup").addEventListener("click", () => {
     createPopup({
         title: "Bienvenue",
         message: "Ceci est une jolie bulle de texte créée en CSS !",
@@ -231,7 +231,7 @@ document.getElementById("popup").addEventListener("click", () => {
                 backgroundColor: "#ffffff",
                 borderRadius: "30px",
                 color: "black",
-                transform: "scale(2)",  /* Augmente la taille de 1.5x, ajustez cette valeur selon vos besoins */
+                transform: "scale(2)",  //Augmente la taille de 1.5x, ajustez cette valeur selon vos besoins 
                 transformOrigin: "center center",
                 
             },
@@ -241,7 +241,7 @@ document.getElementById("popup").addEventListener("click", () => {
             },
 
             closeButtonWrapper: {
-                /* Appliquez un wrapper autour du bouton pour éviter qu'il soit transformé */
+                // Appliquez un wrapper autour du bouton pour éviter qu'il soit transformé 
                 position: "relative",  // Assurez-vous que le wrapper soit positionné correctement
                 zIndex: "100"
             },
@@ -314,3 +314,5 @@ document.getElementById("liste de course").addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", () => {
     colorizeAllImages(".interactive-image");
 });
+
+*/
