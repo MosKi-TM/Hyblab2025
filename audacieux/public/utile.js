@@ -38,7 +38,7 @@ function colorizeImage(imageElement) {
 }
 
 /*
- * Crée un popup personnalisé.
+ * Crée un popup personnalisé avec une pointe triangulaire.
  * @param {Object} options - Options pour personnaliser le popup.
  * @param {string} options.title - Le titre du popup.
  * @param {string} options.message - Le message du popup.
@@ -49,15 +49,14 @@ function colorizeImage(imageElement) {
  * @param {function} options.onClose - Fonction appelée lorsque le popup est fermé.
  */
 function createPopup(options) {
-    // Définir les valeurs par défaut si elles ne sont pas fournies
     const {
         title = "Popup Title",
         message = "This is a message",
         buttonText = "Close",
         width = "300px",
         height = "200px",
-        customStyles = {}, // Par défaut, aucun style personnalisé
-        onClose = () => {}
+        customStyles = {},
+        onClose = () => {},
     } = options;
 
     // Créer les éléments du popup
@@ -66,11 +65,13 @@ function createPopup(options) {
     const popupTitle = document.createElement("h2");
     const popupMessage = document.createElement("p");
     const closeButton = document.createElement("button");
+    const popupTriangle = document.createElement("div"); // Pointe triangulaire
 
     // Ajouter les classes pour le style
     popupOverlay.className = "popup-overlay";
     popupContainer.className = "popup-container";
     closeButton.className = "popup-close-button";
+    popupTriangle.className = "popup-triangle";
 
     // Ajouter le contenu
     popupTitle.textContent = title;
@@ -88,71 +89,106 @@ function createPopup(options) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 1000
+        zIndex: 1000,
+        ...customStyles.Overlay,
     });
 
     Object.assign(popupContainer.style, {
-        backgroundColor: "#fff",
+        backgroundColor: "#007BFF",
+        color: "white",
         padding: "20px",
-        borderRadius: "8px",
+        borderRadius: "10px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         width: width,
         height: height,
         textAlign: "center",
         position: "relative",
-        ...customStyles.container // Appliquer les styles personnalisés ici
+        ...customStyles.container,
+    });
+
+    Object.assign(popupTriangle.style, {
+        content: "''",
+        position: "absolute",
+        bottom: "-20px", // Position sous la bulle
+        left: "30px", // Ajustez pour centrer ou déplacer la pointe
+        width: "0",
+        height: "0",
+        borderWidth: "20px 20px 0 20px", // Taille de la pointe
+        borderStyle: "solid",
+        borderColor: "#ffffff transparent transparent transparent",
+        ...customStyles.triangle,
     });
 
     Object.assign(closeButton.style, {
-        marginTop: "10%",
+        marginTop: "20px",
         padding: "10px 20px",
         border: "none",
-        backgroundColor: "#007BFF",
-        color: "#fff",
+        backgroundColor: "red",
+        color: "white",
         borderRadius: "4px",
         cursor: "pointer",
-        ...customStyles.closeButton
+        ...customStyles.closeButton,
     });
 
     // Ajouter les événements
     closeButton.addEventListener("click", () => {
         document.body.removeChild(popupOverlay);
-        onClose(); // Appeler la fonction onClose si définie
+        onClose();
+    });
+    popupOverlay.addEventListener("click", (e) => {
+        // Si on clique à l'extérieur du popupContainer (c'est-à-dire sur l'overlay)
+        if (e.target === popupOverlay) {
+            document.body.removeChild(popupOverlay);
+            onClose(); // Appeler la fonction onClose si définie
+        }
     });
 
     // Assembler les éléments
     popupContainer.appendChild(popupTitle);
     popupContainer.appendChild(popupMessage);
     popupContainer.appendChild(closeButton);
+    popupContainer.appendChild(popupTriangle); // Ajouter la pointe
     popupOverlay.appendChild(popupContainer);
 
     // Ajouter le popup au DOM
     document.body.appendChild(popupOverlay);
 }
 
-
+// Exemple d'utilisation
 document.getElementById("popup").addEventListener("click", () => {
     createPopup({
         title: "Bienvenue",
-        message: "Ceci est un popup classique.",
+        message: "Ceci est une jolie bulle de texte créée en CSS !",
         buttonText: "Fermer",
-        width: "20%",
-        height: "20%",
+        width: "300px",
+        height: "auto",
         customStyles: {
             container: {
-                backgroundColor: "#f9f9f9",
-                border: "2px solid #ccc"
+                backgroundColor: "#ffffff",
+                borderRadius: "30px",
+                color: "black",
+                transform: "scale(2)",  /* Augmente la taille de 1.5x, ajustez cette valeur selon vos besoins */
+                transformOrigin: "center center",
+                
             },
+            triangle: {
+                left: "10%", // Pointe centrée horizontalement
+                //transform: "translateX(-50%)", // Ajustement du centrage
+            },
+
+            closeButtonWrapper: {
+                /* Appliquez un wrapper autour du bouton pour éviter qu'il soit transformé */
+                position: "relative",  // Assurez-vous que le wrapper soit positionné correctement
+                zIndex: "100"
+            },
+
             closeButton: {
-                backgroundColor: "red",
-                color: "white",
-                borderRadius: "10px",
-                padding: "12px 24px",
-            }
-        }
+                visibility: "hidden",
+            },
+        },
     });
-    
 });
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
