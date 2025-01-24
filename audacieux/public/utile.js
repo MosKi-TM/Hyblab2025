@@ -1,3 +1,57 @@
+class Item {
+    constructor(name, value) {
+        this.name = name;
+        this.value = value;
+        this.isBuy = false;
+    }
+}
+
+class Player {
+    constructor(monney = 0, shopping_list = []) {
+        this.monney = monney;
+        this.shopping_list = shopping_list;
+    }
+
+    withdrawMonney(amount) {
+        if (amount > 0) {
+            this.monney += amount;
+        } else console.error("Montant invalide");
+    }
+
+    buyObject(obj) {
+        if (obj.value > this.monney) {
+            console.error("Solde insuffisant");
+        } else {
+            this.monney -= obj.value;
+            obj.isBuy = true; // Marque l'objet comme acheté
+        }
+    }
+
+    displayInventory() {
+        console.log("Argent restant: " + this.monney);
+        console.log("Liste de courses: ");
+        this.shopping_list.forEach(obj => console.log("- " + obj.name + ", " + obj.isBuy));
+    }
+
+    // Génère la liste HTML avec les styles en fonction de l'état des objets
+    generateShoppingListHTML() {
+        return `
+            <ul style="text-align: left; padding: 0; list-style: inside;">
+                ${this.shopping_list
+                    .map(
+                        item =>
+                            `<li style="text-decoration: ${
+                                item.isBuy ? "line-through" : "none"
+                            };">${item.name}</li>`
+                    )
+                    .join("")}
+            </ul>
+        `;
+    }
+}
+
+
+
 function colorizeAllImages(selector) {
     const images = document.querySelectorAll(selector);
 
@@ -55,6 +109,7 @@ function createPopup(options) {
         buttonText = "Close",
         width = "300px",
         height = "200px",
+        backgroundImage = "",
         customStyles = {},
         onClose = () => {},
     } = options;
@@ -75,7 +130,7 @@ function createPopup(options) {
 
     // Ajouter le contenu
     popupTitle.textContent = title;
-    popupMessage.textContent = message;
+    popupMessage.innerHTML = message;
     closeButton.textContent = buttonText;
 
     // Appliquer les styles de base
@@ -85,7 +140,7 @@ function createPopup(options) {
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        //backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -94,11 +149,18 @@ function createPopup(options) {
     });
 
     Object.assign(popupContainer.style, {
-        backgroundColor: "#007BFF",
+        position: "relative",
+        width: width, // Taille ajustable
+        height: height, // Taille ajustable
+        textAlign: "center",
+        //backgroundColor: "#007BFF",
+        backgroundImage: `url('${backgroundImage}')`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         color: "white",
         padding: "20px",
         borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        //boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
         width: width,
         height: height,
         textAlign: "center",
@@ -152,6 +214,8 @@ function createPopup(options) {
 
     // Ajouter le popup au DOM
     document.body.appendChild(popupOverlay);
+
+    return popupMessage;
 }
 
 // Exemple d'utilisation
@@ -187,6 +251,62 @@ document.getElementById("popup").addEventListener("click", () => {
             },
         },
     });
+});
+
+document.getElementById("liste de course").addEventListener("click", () => {
+    const player = new Player(2000, [
+        new Item("Éponges", 500),
+        new Item("Gants en latex", 300),
+        new Item("Boite de Pringles", 200)
+    ]);
+
+    const popupMessage = createPopup({
+        title: "Liste de course",
+        message: player.generateShoppingListHTML(),
+        buttonText: "Fermer",
+        width: "300px", // Augmente la taille de l'image
+        height: "auto", // Augmente la taille de l'image
+        backgroundImage : "img/postit.webp",
+        
+        customStyles: {
+            container :{
+                position: "relative",
+                width: "300px", // Taille ajustable
+                height: "auto", // Taille ajustable
+                textAlign: "center",
+                backgroundImage: "url('img/postit.webp')",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "20px",
+                boxSizing: "border-box",
+                borderRadius: "8px",
+                color: "black"
+            },
+            triangle: {
+                visibility: "hidden",
+            },
+            closeButton: {
+                visibility: "hidden",
+            },
+
+        },
+
+    });
+
+    // Simule un achat
+    setTimeout(() => {
+        player.buyObject(player.shopping_list[0]);
+        popupMessage.innerHTML = player.generateShoppingListHTML();
+    }, 2000);
+
+    setTimeout(() => {
+        player.buyObject(player.shopping_list[1]);
+        popupMessage.innerHTML = player.generateShoppingListHTML();
+    }, 6000);
 });
 
 
