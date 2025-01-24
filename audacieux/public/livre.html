@@ -4,36 +4,43 @@
 <head>
     <meta charset="utf-8">
     <title>BOOK</title>
-    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/css/bouquin.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Structure HTML exemple -->
-    <div id="book1" class="book" style="width: 100px; height: 150px; background: brown;" data-pages="5">
-        <!-- Conteneur du contenu du livre -->
+    <div id="book1" class="book">
+        <div class="book-cover">
+            <div>
+                <h1>How to CSS</h1>
+                <p class="subtitle">When gpt is down</p>
+            </div>
+        </div>
+
         <div class="content">
-            <div class="page left-page"> <!-- Page gauche -->
-                <p>Texte de la page 1</p>
+            <div class="page left-page">
+                <h2>Page 1</h2>
+                <p>Contenu de la première page</p>
                 <img src="/public/img/logo_hyblab.png" alt="Image sur la page 1">
             </div>
-            <div class="page right-page"> <!-- Page droite -->
-                <p>Texte de la page 2</p>
+            <div class="page right-page">
+                <h2>Page 2</h2>
+                <p>Contenu de la deuxième page</p>
                 <img src="/public/img/scrooge-mcduck.gif" alt="Gif sur la page 2">
             </div>
-            <div class="page left-page"> <!-- Page gauche -->
-                <p>Texte de la page 3</p>
-            </div>
-            <div class="page right-page"> <!-- Page droite -->
+            <div class="page left-page">
+                <h2>Page 3</h2>
+                <p>Contenu de la troisième page</p>
                 <video controls>
                     <source src="video.mp4" type="video/mp4">
                     Votre navigateur ne supporte pas les vidéos.
                 </video>
             </div>
-        </div>
-        <!-- Navigation -->
-        <div class="navigation">
-            <button id="prev">Previous</button>
-            <button id="next">Next</button>
+            <div class="page right-page">
+                <h2>Page 4</h2>
+                <p>Contenu de la deuxième page</p>
+                <img src="/public/img/scrooge-mcduck.gif" alt="Gif sur la page 2">
+            </div>
         </div>
     </div>
     

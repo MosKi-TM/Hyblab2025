@@ -1,77 +1,119 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Sélectionne tous les livres sur la page
-    const books = document.querySelectorAll('.book');
-    let currentOpenBook = null;
+class InteractiveBook {
+    constructor(bookElement) {
+        this.book = bookElement;
+        this.content = this.book.querySelector('.content');
+        this.bookCover = this.book.querySelector('.book-cover');
+        this.pages = Array.from(this.content.querySelectorAll('.page'));
+        this.currentPageIndex = 0;
 
-    books.forEach(book => {
-        const content = book.querySelector('.content');
-        const pages = Array.from(content.querySelectorAll('.page'));
-        let currentPageIndex = 0;
+        this.initializeEvents();
+    }
 
-        const prevButton = book.querySelector('#prev');
-        const nextButton = book.querySelector('#next');
-
-        // Ouvrir un livre au clic
-        book.addEventListener('click', () => {
-
-            // Basculer l'état du livre actuel
-            if (book.classList.contains('open')) {
-                closeBook(book);
-            } else {
-                openBook(book);
-            }
+    initializeEvents() {
+        // Allow opening book from either cover or main body
+        this.book.addEventListener('click', (e) => {
+            // Prevent opening if clicking on navigation buttons
+            if (e.target.closest('.navigation')) return;
+            this.toggleBookState();
         });
+    }
 
-        // Bouton "Précédent"
-        prevButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Empêche le clic sur le bouton de fermer le livre
-            if (currentPageIndex > 0) {
-                currentPageIndex -= 2;
-                updatePages();
-            }
-        });
-
-        // Bouton "Suivant"
-        nextButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Empêche le clic sur le bouton de fermer le livre
-            if (currentPageIndex < pages.length - 2) {
-                currentPageIndex += 2;
-                updatePages();
-            }
-        });
-
-        // Mise à jour de l'affichage des pages
-        const updatePages = () => {
-            pages.forEach((page, index) => {
-                if (index === currentPageIndex || index === currentPageIndex + 1) {
-                    page.classList.remove('hidden');
-                } else {
-                    page.classList.add('hidden');
-                }
-            });
-        };
+    toggleBookState() {
+        this.book.classList.toggle('open');
         
+        if (this.book.classList.contains('open')) {
+            this.openBook();
+        } else {
+            this.closeBook();
+        }
+    }
 
-        // Ouvrir un livre
-        const openBook = (book) => {
-            currentOpenBook = book;
-            book.classList.add('open');
-            book.style.transform = 'scale(3)';
-            book.style.transition = 'transform 0.5s ease';
-            content.style.display = 'block';
-            updatePages(); // Afficher les premières pages
-        };
+    openBook() {
+        // Hide book cover
+        if (this.bookCover) {
+            this.bookCover.style.display = 'none';
+        }
 
-        // Fermer un livre
-        const closeBook = (book) => {
-            book.classList.remove('open');
-            book.style.transform = 'scale(1)';
-            book.style.transition = 'transform 0.5s ease';
-            content.style.display = 'none';
-            currentOpenBook = null;
-        };
+        // Create book container
+        const bookContainer = document.createElement('div');
+        bookContainer.className = 'book-container';
 
-        // Initialiser l'affichage des pages au début
-        updatePages();
-    });
+        // Create current pages container
+        const currentPagesContainer = document.createElement('div');
+        currentPagesContainer.className = 'current-pages';
+
+        // Clone and display only current two pages
+        const currentPages = this.pages.slice(this.currentPageIndex, this.currentPageIndex + 2);
+        currentPages.forEach(page => {
+            const clonedPage = page.cloneNode(true);
+            clonedPage.style.display = 'block';
+            currentPagesContainer.appendChild(clonedPage);
+        });
+
+        bookContainer.appendChild(currentPagesContainer);
+
+        // Add navigation buttons
+        const navigation = document.createElement('div');
+        navigation.className = 'navigation';
+        navigation.innerHTML = `
+            <button id="prev">Précédent</button>
+            <button id="next">Suivant</button>
+        `;
+
+        this.book.appendChild(bookContainer);
+        this.book.appendChild(navigation);
+
+        // Add navigation event listeners
+        this.book.querySelector('#prev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.navigatePage(-2);
+        });
+        this.book.querySelector('#next').addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.navigatePage(2);
+        });
+    }
+
+    closeBook() {
+        // Remove book container and navigation
+        const bookContainer = this.book.querySelector('.book-container');
+        const navigation = this.book.querySelector('.navigation');
+        
+        if (bookContainer) this.book.removeChild(bookContainer);
+        if (navigation) this.book.removeChild(navigation);
+
+        // Restore book cover
+        if (this.bookCover) {
+            this.bookCover.style.display = 'flex';
+        }
+    }
+
+    navigatePage(step) {
+        const newIndex = this.currentPageIndex + step;
+        if (newIndex >= 0 && newIndex < this.pages.length - 1) {
+            this.currentPageIndex = newIndex;
+            this.updatePageView();
+        }
+    }
+
+    updatePageView() {
+        // Remove existing pages
+        const bookContainer = this.book.querySelector('.book-container');
+        const currentPagesContainer = bookContainer.querySelector('.current-pages');
+        currentPagesContainer.innerHTML = '';
+
+        // Add new pages
+        const currentPages = this.pages.slice(this.currentPageIndex, this.currentPageIndex + 2);
+        currentPages.forEach(page => {
+            const clonedPage = page.cloneNode(true);
+            clonedPage.style.display = 'block';
+            currentPagesContainer.appendChild(clonedPage);
+        });
+    }
+}
+
+// Initialize books
+document.addEventListener('DOMContentLoaded', () => {
+    const books = document.querySelectorAll('.book');
+    books.forEach(book => new InteractiveBook(book));
 });
