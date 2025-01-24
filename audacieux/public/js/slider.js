@@ -1,4 +1,4 @@
-
+//Je crois qu'il faudra modifier le slider afin qu'il soit en mesure de donner les checkpoints pour insérer les pages du livre.
 const sceneAudio = new audioScene('audio_scene.json')
 
 const sceneManager = new Scene("sceneData.json", "scene-container", sceneAudio);

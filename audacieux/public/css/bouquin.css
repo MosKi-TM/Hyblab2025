@@ -1,18 +1,28 @@
+/*Tout ce qui est en commentaire est à modifier pour personnaliser le livre
+Après vous pouvez vous aussi modifier le code je crois qu'il y a plein de trucs inutile*/
+
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Police du texte */
 }
 
 .book {
     cursor: pointer;
     position: relative;
-    width: 100px;
-    height: 150px;
+    width: 100px; /*Dimensions livre fermé (px ou un pourcentage pour le responsive) */
+    height: 150px; /*Dimensions livre fermé (px ou un pourcentage pour le responsive) */
     background: brown;
     transition: all 0.5s ease;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    border: 0px solid #000; /* bordure du livre */
+    border-radius: 10px; /* pour des coins arrondis */
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.5); /* Ombre du livre */
+    position: absolute; /* position du livre mais cette ligne et les 2 du dessous peuvent être delete */
+    top: 1%;
+    left: 2%; 
 }
 
 .book-cover {
@@ -21,7 +31,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: brown;
+    background-color: brown; /*Couleur de la couverture du livre */
+    background-image: url('/public/img/le-cycle-de-dune-tome-1-dune-1477958.jpg'); /* image de couverture */
+    background-size: cover; /* Taille de l'image de couverture, normalement pas toucher*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,7 +59,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100vw; /*Dimensions du livre fermé.*/
     height: 100vh;
     background: rgba(0,0,0,0.8);
     display: flex;
@@ -57,7 +69,6 @@ body {
 }
 
 .book.open .content {
-    /* Move original content completely out of view */
     position: absolute;
     top: -9999px;
     left: -9999px;
@@ -81,10 +92,11 @@ body {
 .page {
     flex: 1;
     padding: 20px;
-    overflow-y: auto; /* Vertical scrolling only */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto;
+    overflow-x: hidden;
     border-right: 1px solid #ccc;
-    max-width: 100%; /* Ensure content doesn't expand beyond page width */
+    max-width: 100%;
+    background-color: #fdf5e6; /* couleur de fond de page */
 }
 
 .page:last-child {
@@ -138,4 +150,38 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+}
+
+/* Styles pour le deuxième livre */
+#book2 {
+    cursor: pointer;
+    position: relative;
+    width: 120px; /* Dimensions spécifiques au deuxième livre */
+    height: 180px;
+    background: darkblue;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    top: 20%; /* Position spécifique */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#book2 .book-cover {
+    background-color: darkblue;
+    background-image: url('/public/img/cover2.jpg'); /* Image de couverture pour le deuxième livre */
+    background-size: cover;
+}
+
+#book2 .book-cover h1 {
+    font-size: 1.2em;
+}
+
+#book2 .book-cover .subtitle {
+    font-size: 0.9em;
+}
+
+#book2.book.open {
+    width: 90vw;
+    height: 90vh;
+    background: rgba(0, 0, 0, 0.85);
 }
