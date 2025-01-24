@@ -94,8 +94,13 @@ function updateKeyframes(value, time) {
         interpolate(time, init_o.time, end_o.time, init_o.scale, end_o.scale)
       );
 
-      if (value.type === "lottie") {
-        // Lottie behaviour
+      if (value.type === "lottie" && value.id === "lottieElement1") {
+        if (interpolate(time, init_o.time, end_o.time, init_o.x, end_o.x) === 1000) {
+            const audioController = new AudioController();
+            audioController.loadAudioConfiguration().then(() => {
+                audioController.playAudio('lottie_x_1000');
+            });
+        }
       }
     }
   }

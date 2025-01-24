@@ -1,0 +1,18 @@
+{
+    "audios": [
+      {
+        "id": "ambiance",
+        "file": "ambiance.ogg",
+        "event": "start_scene",
+        "volume": 1.0,
+        "loop": true
+      },
+      {
+        "id": "drone",
+        "file": "Drone.ogg",
+        "event": "lottie_x_1000",
+        "volume": 1.0,
+        "loop": false
+    }
+    ]
+}
