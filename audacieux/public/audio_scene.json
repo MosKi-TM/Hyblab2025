@@ -3,6 +3,7 @@
         {
             "id": "ambiance",
             "src": "assets/audio/ambiance.mp3",
+            "volume": 0.5,
             "keyframes":[
                 {"time": 1, "type":"loop"}
             ]
@@ -10,6 +11,7 @@
         {
             "id": "drone1",
             "src": "assets/audio/drone1.mp3",
+            "volume": 0.8,
             "keyframes":[
                 {"time": 18, "type":"play_once"},
                 {"time": 30, "type":"pause"}
@@ -18,6 +20,7 @@
         {
             "id": "drone2",
             "src": "assets/audio/drone2.mp3",
+            "volume": 0.8,
             "keyframes":[
                 {"time": 20, "type":"play_once"},
                 {"time": 30, "type":"pause"}
@@ -26,8 +29,18 @@
         {
             "id": "Bell",
             "src": "assets/audio/bell.mp3",
+            "volume": 0.4,
             "keyframes":[
-                {"time": 38, "type":"play_once"}
+                {"time": 40, "type":"play_once"}
+            ]
+        },
+        {
+            "id": "velo",
+            "src": "assets/audio/velo.mp3",
+            "volume": 0.7,
+            "keyframes":[
+                {"time": 35, "type":"play_once"},
+                {"time": 47, "type":"pause"}
             ]
         }
     ]

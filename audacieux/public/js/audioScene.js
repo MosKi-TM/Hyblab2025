@@ -9,6 +9,7 @@ class audioScene {
             .then(data => {
                 this.objects = data.audios.map(audio => {
                     const audioElement = new Audio(audio.src);
+                    audioElement.volume = audio.volume; // Set the volume for each audio element
                     return {
                         id: audio.id,
                         element: audioElement,
