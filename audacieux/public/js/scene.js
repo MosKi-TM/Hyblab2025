@@ -44,6 +44,14 @@ class Scene {
         window[triggers.onload.func](html_object, ...triggers.onload.args);
         console.log("test")
     }
+
+    // Ajouter un gestionnaire d'événements pour jouer l'audio
+    if (trigger.audio) {
+      console.log(`Audio trigger: ${trigger.audio}`);
+      html_object.addEventListener("click", () => {
+          this.sceneAudio.playAudio(trigger.audio);
+      });
+    }
     }); 
   }
 }

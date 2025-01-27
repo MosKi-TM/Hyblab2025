@@ -62,4 +62,14 @@ class audioScene {
             }
         });
     }
+
+    playAudio(audioId) {
+        const audioObject = this.objects.find(audio => audio.id === audioId);
+        if (audioObject) {
+            console.log(`Playing audio: ${audioId}`);
+            audioObject.element.play();
+        } else {
+            console.warn(`Audio ID ${audioId} not found.`);
+        }
+    }
 }

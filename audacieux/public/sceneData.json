@@ -3,7 +3,8 @@
       {
         "id": "MARCHÉ-2",
         "onload": {"func":"colorScript", "args":[]},
-        "script": {"func":"loadSceneScript", "args":["scene1"]}
+        "script": {"func":"loadSceneScript", "args":["scene1"]},
+        "audio": "Bell"    
       }
   ],
 
