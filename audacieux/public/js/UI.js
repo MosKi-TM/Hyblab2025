@@ -74,6 +74,9 @@
             triangle: {
                 visibility: "hidden",
             },
+            closeButton:{
+                visibility:"hidden",
+            }
         },
     });
     await waitForClick("inventaire");
@@ -178,6 +181,9 @@
             triangle: {
                 visibility: "hidden",
             },
+            closeButton:{
+                visibility:"hidden",
+            }
         },
     });
 
