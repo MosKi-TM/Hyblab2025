@@ -4,17 +4,34 @@
     // Désactiver toutes les interactions sauf sur "inventaire"
 
     const tutoinventaire = createPopupTuto("inventaire", {
-        title: "Binevenue!!!",
+        title: "Bonjour!!!",
         message: "Clique sur l'icone de quête en forme de coffre",
         buttonText: "Fermer",
         width: "300px",
         height: "auto",
-        backgroundImage: "",
+        backgroundImage: "img/bulle.png",
         customStyles: {
+
+            title:{
+                color: "black",
+                padding:"0% 0% 0% 12%"
+            },
+
+            message: {
+                width:"80%",
+                padding:"2% 0% 0% 12%",
+            },
             container: {
+                padding:"0% 2% 2% 2%",
+                color: "black",
                 position: "fixed",
                 top: "5%",
                 left: "40%",
+                transform: "scale(1.5)",
+                backgroundSize: "180%",
+                backgroundPosition: "53% 45%", // Centre horizontalement à 50%, décalage vertical à 30%
+
+
             },
         },
     });
@@ -64,14 +81,32 @@
     const tutofininventaire = createPopupTuto("inventaire", {
         title: "L'INVENTAIRE",
         message: "Ici tu auras l'ensemble des objets à acheter durant ton aventure, les objets se rayeront si tu les a en ta possession. Clique sur l'inventaire lorsque tu as compris",
-        width: "300px",
+        width: "350px",
         height: "auto",
-        backgroundImage: "",
+        backgroundImage: "img/bulle.png",
         customStyles: {
+
+            title:{
+                color: "black",
+                padding:"0% 0% 0% 8%"
+            },
+
+            message: {
+                width:"80%",
+                padding:"1% 0% 0% 12%",
+                margin:"1% 0% 0% 0%"
+            },
             container: {
+                padding:"0% 2% 2% 2%",
+                color: "black",
                 position: "fixed",
                 top: "5%",
                 left: "40%",
+                transform: "scale(1.5)",
+                backgroundSize: "180%",
+                backgroundPosition: "53% 45%", // Centre horizontalement à 50%, décalage vertical à 30%
+
+
             },
         },
     });
@@ -85,12 +120,30 @@
         message: "clique sur le livre en dessous du coffre!",
         width: "300px",
         height: "auto",
-        backgroundImage: "",
+        backgroundImage: "img/bulle.png",
         customStyles: {
+
+            title:{
+                color: "black",
+                padding:"0% 0% 1% 8%"
+            },
+
+            message: {
+                width:"80%",
+                padding:"0% 0% 0% 12%",
+                margin:"0% 0% 0% 0%"
+            },
             container: {
+                padding:"0% 2% 2% 2%",
+                color: "black",
                 position: "fixed",
-                top: "10%",
+                top: "5%",
                 left: "40%",
+                transform: "scale(1.5)",
+                backgroundSize: "170%",
+                backgroundPosition: "53% 45%", // Centre horizontalement à 50%, décalage vertical à 30%
+
+
             },
         },
     });
@@ -133,14 +186,32 @@
     const tutofinBouquin = createPopupTuto("livre", {
         title: "LE BOUQUIN",
         message: "Ici s'écrira ton histoire au fur et a mesure de l'aventure n'hesite pas a y jeter un coup d'oeil, clique sur le livre lorsque tu as compris ",
-        width: "300px",
+        width: "350px",
         height: "auto",
-        backgroundImage: "",
+        backgroundImage: "img/bulle.png",
         customStyles: {
+
+            title:{
+                color: "black",
+                padding:"0% 0% 0% 8%"
+            },
+
+            message: {
+                width:"80%",
+                padding:"0% 0% 0% 12%",
+                margin:"0% 0% 0% 0%"
+            },
             container: {
+                padding:"0% 2% 2% 2%",
+                color: "black",
                 position: "fixed",
-                top: "10%",
+                top: "5%",
                 left: "40%",
+                transform: "scale(1.5)",
+                backgroundSize: "170%",
+                backgroundPosition: "53% 45%", // Centre horizontalement à 50%, décalage vertical à 30%
+
+
             },
         },
     });
@@ -152,16 +223,33 @@
     const tutoScroll = createPopupTuto("PÉNICHE",{
         title: "Se balader sur le canal",
         message: "Pour se balader sur le canal rien de plus simple! Utilise ta souris ou ton pavétactile en balayant vers le bas pour faire bouger le bateau ! Tu recontreras plusieurs points d'étapes tout au long de ton voyage. Ces derniers apparaitront en noir et blanc avec une bulle de texte. Clique dessus pour découvrir le point d'étape et découvir la vie du canal du midi. Commence à voyager!!!   ",
-        width: "300px",
+        width: "550px",
         height: "auto",
-        backgroundImage: "",
         closeOnScroll: true,
+        backgroundImage: "img/bulle.png",
         customStyles: {
+
+            title:{
+                color: "black",
+                padding:"0% 0% 0% 8%"
+            },
+
+            message: {
+                width:"80%",
+                padding:"3% 0% 0% 13%",
+                margin:"0% 0% 0% 0%"
+            },
             container: {
+                padding:"0% 2% 2% 2%",
+                color: "black",
                 position: "fixed",
-                top: "20%",
-                left: "35%",
-                transform:"scale(1.5)"
+                top: "5%",
+                left: "30%",
+                transform: "scale(1.5)",
+                backgroundSize: "170%",
+                backgroundPosition: "53% 45%", // Centre horizontalement à 50%, décalage vertical à 30%
+
+
             },
         },
     });
