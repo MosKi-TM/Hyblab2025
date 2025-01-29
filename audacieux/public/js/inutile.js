@@ -118,79 +118,116 @@ document.addEventListener('DOMContentLoaded', () => {
     books.forEach(book => new InteractiveBook(book));
 });
 
-
-//Pour gérer l'insertion dynamique du contenu du livre.
-
-class DynamicBookContent {
-    constructor(bookElement, jsonPath) {
-        this.book = bookElement;
-        this.contentContainer = this.book.querySelector('.content');
-        this.jsonPath = jsonPath;
-        this.bookContent = null;
-        this.currentStep = 0;
-    }
-
-    async initializeContent() {
+class InteractiveBook {
+    // Ajoutez cette méthode dans votre classe
+    async loadPagesFromJSON(jsonPath) {
         try {
-            const response = await fetch(this.jsonPath);
-            this.bookContent = await response.json();
-            this.updateBookContent();
+            const response = await fetch(jsonPath);
+            const pagesData = await response.json();
+            
+            pagesData.forEach(page => this.addPage(page));
         } catch (error) {
-            console.error('Erreur de chargement du contenu:', error);
+            console.error("Erreur lors du chargement des pages :", error);
         }
     }
 
-    updateBookContent() {
-        // Récupérer l'étape actuelle depuis sceneManager
-        this.currentStep = sceneManager.time;
+    addPage(pageData) {
+        const newPage = document.createElement('div');
+        newPage.className = `page ${this.pages.length % 2 === 0 ? 'left-page' : 'right-page'}`;
+        
+        newPage.innerHTML = `
+            <h2>${pageData.title}</h2>
+            <p>${pageData.content}</p>
+            ${pageData.media.type === 'image' ? 
+                `<img src="${pageData.media.src}" alt="${pageData.media.alt}">` : 
+                `<video controls>
+                    <source src="${pageData.media.src}" type="video/mp4">
+                    Votre navigateur ne supporte pas les vidéos.
+                </video>`
+            }
+        `;
 
-        // Filtrer les pages qui correspondent à l'étape actuelle ou antérieure
-        const availablePages = this.bookContent.pages
-            .filter(page => page.step <= this.currentStep)
-            .sort((a, b) => a.step - b.step);
-
-        // Vider le contenu actuel
-        this.contentContainer.innerHTML = '';
-
-        // Ajouter les pages filtrées
-        availablePages.forEach((pageData, index) => {
-            const pageElement = document.createElement('div');
-            pageElement.className = `page ${index % 2 === 0 ? 'left-page' : 'right-page'}`;
-            pageElement.innerHTML = `
-                <h2>${pageData.title}</h2>
-                <p>${pageData.content}</p>
-                ${pageData.image ? `<img src="${pageData.image}" alt="Illustration">` : ''}
-            `;
-            this.contentContainer.appendChild(pageElement);
-        });
-
-        // Mettre à jour le localStorage
-        localStorage.setItem('bookProgress', JSON.stringify({
-            currentStep: this.currentStep,
-            pagesUnlocked: availablePages.length
-        }));
-    }
-
-    // Méthode pour restaurer la progression
-    restoreProgress() {
-        const savedProgress = JSON.parse(localStorage.getItem('bookProgress'));
-        if (savedProgress) {
-            this.currentStep = savedProgress.currentStep;
-            // Vous pouvez ajouter une logique supplémentaire si nécessaire
-        }
+        this.content.appendChild(newPage);
+        this.pages.push(newPage);
     }
 }
 
-// Initialisation
-document.addEventListener('DOMContentLoaded', () => {
-    const book = document.getElementById('book1');
-    const dynamicBook = new DynamicBookContent(book, '/path/to/book-content.json');
-    
-    // Lier la mise à jour du livre à la progression de la scène
-    sceneManager.addEventListener('timeupdate', () => {
-        dynamicBook.updateBookContent();
-    });
 
-    // Initialiser le contenu
-    dynamicBook.initializeContent();
-});
+
+
+
+// //Pour gérer l'insertion dynamique du contenu du livre.
+
+// class DynamicBookContent {
+//     constructor(bookElement, jsonPath) {
+//         this.book = bookElement;
+//         this.contentContainer = this.book.querySelector('.content');
+//         this.jsonPath = jsonPath;
+//         this.bookContent = null;
+//         this.currentStep = 0;
+//     }
+
+//     async initializeContent() {
+//         try {
+//             const response = await fetch(this.jsonPath);
+//             this.bookContent = await response.json();
+//             this.updateBookContent();
+//         } catch (error) {
+//             console.error('Erreur de chargement du contenu:', error);
+//         }
+//     }
+
+//     updateBookContent() {
+//         // Récupérer l'étape actuelle depuis sceneManager
+//         this.currentStep = sceneManager.time;
+
+//         // Filtrer les pages qui correspondent à l'étape actuelle ou antérieure
+//         const availablePages = this.bookContent.pages
+//             .filter(page => page.step <= this.currentStep)
+//             .sort((a, b) => a.step - b.step);
+
+//         // Vider le contenu actuel
+//         this.contentContainer.innerHTML = '';
+
+//         // Ajouter les pages filtrées
+//         availablePages.forEach((pageData, index) => {
+//             const pageElement = document.createElement('div');
+//             pageElement.className = `page ${index % 2 === 0 ? 'left-page' : 'right-page'}`;
+//             pageElement.innerHTML = `
+//                 <h2>${pageData.title}</h2>
+//                 <p>${pageData.content}</p>
+//                 ${pageData.image ? `<img src="${pageData.image}" alt="Illustration">` : ''}
+//             `;
+//             this.contentContainer.appendChild(pageElement);
+//         });
+
+//         // Mettre à jour le localStorage
+//         localStorage.setItem('bookProgress', JSON.stringify({
+//             currentStep: this.currentStep,
+//             pagesUnlocked: availablePages.length
+//         }));
+//     }
+
+//     // Méthode pour restaurer la progression
+//     restoreProgress() {
+//         const savedProgress = JSON.parse(localStorage.getItem('bookProgress'));
+//         if (savedProgress) {
+//             this.currentStep = savedProgress.currentStep;
+//             // Vous pouvez ajouter une logique supplémentaire si nécessaire
+//         }
+//     }
+// }
+
+// // Initialisation
+// document.addEventListener('DOMContentLoaded', () => {
+//     const book = document.getElementById('book1');
+//     const dynamicBook = new DynamicBookContent(book, '/path/to/book-content.json');
+    
+//     // Lier la mise à jour du livre à la progression de la scène
+//     sceneManager.addEventListener('timeupdate', () => {
+//         dynamicBook.updateBookContent();
+//     });
+
+//     // Initialiser le contenu
+//     dynamicBook.initializeContent();
+// });

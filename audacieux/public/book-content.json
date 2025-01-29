@@ -1,22 +1,22 @@
-{
-    "pages": [
-        {
-            "step": 0,
-            "title": "Le début de l'aventure",
-            "content": "Votre histoire commence...",
-            "image": "/public/img/start.jpg"
-        },
-        {
-            "step": 25,
-            "title": "Première étape",
-            "content": "Vous progressez...",
-            "video": "/public/video/progress.mp4"
-        },
-        {
-            "step": 50,
-            "title": "Mi-parcours",
-            "content": "Un événement important...",
-            "gif": "/public/img/key-moment.gif"
-        }
-    ]
-}
+[
+    {
+      "step": 1,
+      "title": "Titre de la page 1",
+      "content": "Contenu de la page 1",
+      "media": {
+        "type": "image",
+        "src": "/path/to/image1.jpg",
+        "alt": "Description de l'image"
+      }
+    },
+    {
+      "step": 2,
+      "title": "Titre de la page 2",
+      "content": "Contenu de la page 2",
+      "media": {
+        "type": "video",
+        "src": "/path/to/video.mp4"
+      }
+    }
+  ]
+  
