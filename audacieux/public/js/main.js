@@ -34,19 +34,23 @@ document.querySelectorAll("svg").forEach(svg => {
 });
 let isAnimating = false;
 
-function dysplayCredits() {
+function displayCredits() {
   const credits = document.getElementById('credits');
-  if (sceneManager.time == 100) {
-    credits.style.display = 'block';
+  const ia = document.getElementById('ia');
+
+  if (sceneManager.time >= 98) {
+    credits.classList.add('visible');
+    ia.classList.add('visible');
+  } else {
+    credits.classList.remove('visible');
+    ia.classList.remove('visible');
   }
-  else {
-    credits.style.display = 'none';
-  }
-};
+
+}
 
 document.addEventListener("wheel",
   function (event) {
-    dysplayCredits();
+    displayCredits();
     event.preventDefault(); 
     const timeDelta = event.deltaY / 100;
     
