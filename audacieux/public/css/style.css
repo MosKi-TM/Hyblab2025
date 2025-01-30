@@ -278,14 +278,26 @@ g[id^="ARBRE-"]{
   transform-origin: center;
 }
 
-#credits, #ia {
+#credits {
+  position: fixed;
+  top: 20vh;
+  right: 5vw;
+  z-index: 10000;
+  width: auto; /* Garde la largeur proportionnelle */
+  height: clamp(200px, 50vh, 450px); /* Respecte tes valeurs */
+  max-width: 70vw; /* Pour éviter qu'elle soit trop large */
+  object-fit: contain; /* Assure le respect des proportions */
+  transition: display 0.5s ease-in-out;;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   display: block; /* Garder visible mais transparent */
   pointer-events: none; /* Empêche l'interaction quand invisible */
 }
+#ia {
+  display: none;
+}
 
-#credits.visible, #ia.visible {
+#credits.visible {
   opacity: 1;
   pointer-events: auto; /* Permet l'interaction une fois visible */
 }

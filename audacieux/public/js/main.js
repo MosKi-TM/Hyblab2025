@@ -38,15 +38,21 @@ function displayCredits() {
   const credits = document.getElementById('credits');
   const ia = document.getElementById('ia');
 
-  if (sceneManager.time >= 98) {
+  if (sceneManager.time === 100) {
     credits.classList.add('visible');
-    ia.classList.add('visible');
+    ia.style.display = 'block'; // Affiche immédiatement le bouton
   } else {
     credits.classList.remove('visible');
-    ia.classList.remove('visible');
+    ia.style.display = 'none'; // Cache immédiatement le bouton
   }
-
 }
+
+  // Gestion du clic sur le bouton "ia"
+  ia.addEventListener("click", () => {
+    window.location.href = "pageia.html";
+});
+
+
 
 document.addEventListener("wheel",
   function (event) {
