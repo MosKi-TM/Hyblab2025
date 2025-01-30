@@ -26,36 +26,38 @@ class audioScene {
         this.objects.forEach(audioObject => {
             const { element, keyframes, isLooping } = audioObject;
 
-            keyframes.forEach(keyframe => {
-                if (Math.floor(keyframe.time) === Math.floor(this.time)) {
-                    switch (keyframe.type) {
-                        case "play_once":
-                            if (!isLooping) {
-                                element.currentTime = 0; // Reset to start for play_once
-                                element.play();
-                            }
-                            break;
-
-                        case "pause":
-                            element.pause();
-                            break;
-
-                        case "loop":
-                            if (!isLooping) {
-                                audioObject.isLooping = true;
-                                element.loop = true;
-                                element.play();
-                            }
-                            break;
-
-                        default:
-                            console.warn(`Unknown keyframe type: ${keyframe.type}`);
+            if (keyframes.length > 0) {
+                keyframes.forEach(keyframe => {
+                    if (Math.floor(keyframe.time) === Math.floor(this.time)) {
+                        switch (keyframe.type) {
+                            case "play_once":
+                                if (!isLooping) {
+                                    element.currentTime = 0; // Reset to start for play_once
+                                    element.play();
+                                }
+                                break;
+    
+                            case "pause":
+                                element.pause();
+                                break;
+    
+                            case "loop":
+                                if (!isLooping) {
+                                    audioObject.isLooping = true;
+                                    element.loop = true;
+                                    element.play();
+                                }
+                                break;
+    
+                            default:
+                                console.warn(`Unknown keyframe loop: ${keyframe.type}`);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             // Stop looping if the current keyframe is no longer "loop"
-            if (isLooping && !keyframes.some(kf => kf.time <= this.time && kf.type === "loop")) {
+            if (isLooping && !keyframes.some(kf => kf.time <= this.time && kf.loop === "loop")) {
                 audioObject.isLooping = false;
                 element.loop = false;
             }
@@ -63,17 +65,20 @@ class audioScene {
     }
 }
 
+const audioElements = {}; // Définir globalement pour pouvoir arrêter tous les éléments audio
+
 // Fonction pour jouer un audio à partir d'un événement
-function playAudioTrigger(file_name, id, loop = false) {
+function playAudioTrigger(file_name, id) {
     fetch(file_name)
         .then(response => response.json())
         .then(data => {
             const audioData = data.audios.find(audio => audio.id === id);
             if (audioData) {
-                const audioElement = new Audio(audioData.src);
-                audioElement.volume = audioData.volume;
-                audioElement.loop = audioData.type;
-                ambianceAudio = audioElement;
+                if (!audioElements[id]) {
+                    audioElements[id] = new Audio(audioData.src);
+                    audioElements[id].volume = audioData.volume;
+                }
+                const audioElement = audioElements[id];
                 console.log(`Playing audio: ${id}`); // Log audio ID
 
                 // Utiliser une structure switch pour gérer différents types de lecture audio
@@ -98,4 +103,41 @@ function playAudioTrigger(file_name, id, loop = false) {
             }
         })
         .catch(err => console.error("Error loading audio configuration:", err));
+}
+
+
+function playAudioAmbiance(shouldPlay) {
+    if (shouldPlay) {
+        // Charger et jouer l'audio d'ambiance en boucle
+        fetch("data/audio_scene.json")
+            .then(response => response.json())
+            .then(data => {
+                const audioData = data.audios.find(audio => audio.id === "ambiance");
+                if (audioData) {
+                    ambianceAudio = new Audio(audioData.src);
+                    ambianceAudio.volume = audioData.volume;
+                    ambianceAudio.loop = true;
+                    ambianceAudio.play();
+                    console.log("Playing ambiance audio in loop.");
+                } else {
+                    console.error("Ambiance audio not found in data/audio_scene.json.");
+                }
+            })
+            .catch(err => console.error("Error loading audio configuration:", err));
+    } else {
+        if (ambianceAudio) {
+            ambianceAudio.pause();
+            console.log("Stopping ambiance audio.");
+        }
+    }
+}
+
+function stopAllAudio() {
+    for (const id in audioElements) {
+        if (audioElements[id]) {
+            audioElements[id].pause();
+            audioElements[id].currentTime = 0; // Reset to start
+            console.log(`Stopping audio: ${id}`);
+        }
+    }
 }

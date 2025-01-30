@@ -3,18 +3,20 @@
     {
       "id": "MARCHÉ-2",
       "onload": {"func":"colorScript", "args":[]},
-      "script": {"func":"loadSceneScript", "args":["marche"]}
+      "script": {"func":"loadSceneScript", "args":["marche"]},
+      "audio": {"func":"playAudio", "args":["marcheAmb"]}
     },
     {
       "id": "PÉNICHE",
       "onload": {"func":"colorScript", "args":[]},
-      "script": {"func":"loadSceneScript", "args":["start_peniche"]}
+      "script": {"func":"loadSceneScript", "args":["start_peniche"]},
+      "audio": {"func":"playAudio", "args":["bateauAmb"]}
     },
     {
       "id":"LIBRAIRIE",
       "onload": {"func":"colorScript", "args":[]},
       "script": {"func":"loadSceneScript", "args":["Librairie"]},
-      "audio": {"func":"playAudio", "args":["Bell"]}
+      "audio": {"func":"playAudio", "args":["porteOLib"]}
     }
   ],
 
@@ -25,8 +27,7 @@
       "type": "group",
       "src": "",
       "z": 1,
-      "subElement":[
-        
+      "subElement":[        
         
         {
           "id": "river",
@@ -211,7 +212,31 @@
               "scale": 65
             }
           ]
-        } 
+        },
+
+        {
+          "id": "credit",
+          "type": "svg",
+          "src": "assets/graphic/Peniche.svg",
+          "z": 9,
+          "keyframes": [
+            {
+              "time": 91,
+              "x": 11000,
+              "y": -300,
+              "rotation": 0,
+              "scale": 1
+            },
+
+            {
+              "time": 100,
+              "x": 9250,
+              "y": -300,
+              "rotation": 0,
+              "scale": 1
+            }
+          ]
+        }
       ],
       "keyframes": [
         {
@@ -225,4 +250,5 @@
     }
 
   ]
+  
 }
